@@ -1,0 +1,192 @@
+
+.team-list {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 200px;
+  padding: 0;
+
+  list-style: none;
+  text-transform: uppercase;
+}
+
+.team-list li {
+  position: relative;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: cubic-bezier(.4,0,.2,1) all 0.2s;
+  background-color: white;
+  margin-top: 5px;
+  border-bottom-right-radius: 3px;
+  border-top-right-radius: 3px;
+}
+
+.team-list li:hover {
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+}
+
+.team-list li.selected {
+  background-color: #FF9800;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+}
+
+.team-list li::after {
+  content: " ";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: black;
+  opacity: 0;
+}
+
+.team-list li h1 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.team-content-list {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 200px;
+  right: 0;
+  bottom: 0;
+  list-style: none;
+}
+
+.team-content-list.selected {
+  display: block;
+}
+
+.team-content-list li h1 {
+  font-size: 16px;
+  text-transform: capitalize;
+}
+
+.section-list {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-flow: row wrap;
+  /*justify-content: space-around;*/
+  margin: 0;
+  padding: 0;
+}
+
+.section-list .section-item {
+  flex: 0 0 auto;
+  display: block;
+  position: relative;
+  width: 300px;
+  height: 60px;
+  margin: 10px;
+  background-color: white;
+  margin-bottom: 10px;
+  border-radius: 3px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+}
+
+.section-list .section-item a {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+
+.section-list .section-item a::after {
+  content: " ";
+  position: absolute;
+  display: block;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: white;
+  opacity: 0;
+  transition: all 0.2s ease;
+}
+
+.section-list .section-item a:hover::after {
+  opacity: 0.1;
+}
+
+.section-list .section-item .img {
+  position: absolute;
+  display: block;
+  top: 5px;
+  left: 10px;
+  height: 50px;
+  width: 50px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.section-list .section-item .img.round {
+  border-radius: 100%;
+}
+
+.section-list .section-item .img.white-bg {
+  background-color: white;
+}
+
+.section-list .section-item h1 {
+  position: absolute;
+  left: 70px;
+  top: 10px;
+  margin: 0;
+}
+
+.section-list .section-item span {
+  position: absolute;
+  left: 70px;
+  top: 35px;
+  margin: 0;
+  font-size: 12px;
+}
+
+.section-list .section-item.red {
+  color: white;
+  background-color: #F44336;
+}
+.section-list .section-item.pink {
+  color: white;
+  background-color: #E91E63;
+}
+.section-list .section-item.purple {
+  color: white;
+  background-color: #9C27B0;
+}
+.section-list .section-item.blue {
+  color: white;
+  background-color: #2196F3;
+}
+.section-list .section-item.teal {
+  color: white;
+  background-color: #009688;
+}
+.section-list .section-item.green {
+  background-color: #4CAF50;
+}
+.section-list .section-item.lime {
+  background-color: #CDDC39;
+}
+.section-list .section-item.yellow {
+  background-color: #FFEB3B;
+}
+.section-list .section-item.orange {
+  background-color: #FF9800;
+}
+.section-list .section-item.brown {
+  color: white;
+  background-color: #795548;
+}
+.section-list .section-item.blue-gray {
+  color: white;
+  background-color: #607D8B;
+}

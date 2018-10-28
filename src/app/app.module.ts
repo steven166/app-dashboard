@@ -2,15 +2,26 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
+import { CallbackComponent } from './callback/callback.component';
+import { HomeComponent } from './home/home.component';
+import { HttpModule } from '@angular/http';
+import { AuthService } from './auth/auth.service';
+import { ROUTES } from './app.routes';
+import { RouterModule } from '@angular/router';
+import { ConfigService } from './config/config.service';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CallbackComponent,
+    HomeComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    HttpModule,
+    RouterModule.forRoot(ROUTES)
   ],
-  providers: [],
+  providers: [AuthService, ConfigService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

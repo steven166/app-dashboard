@@ -1,6 +1,38 @@
 # AppDashboard
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.2.1.
+App Dashboard can be used as a landing-page for multiple applications, it is protected by OAuth2 authentication and can be configured through yaml files.
+
+## Usage
+```bash
+docker run -p 8080:8080 -v config.yml:/usr/share/nginx/html/assets/config/config.yml -v apps.yml:/usr/share/nginx/html/assets/config/apps.yml steven166/app-dashboard
+```
+
+## Configure
+**/usr/share/nginx/html/assets/config/config.yml**
+```yaml
+clientID: <OAUTH_CLIENT_ID>
+domain: example.com
+responseType: 'token id_token'
+redirectUri: '/callback'
+scope: 'openid read:clients profile email'
+homeUrl: example.com
+logo: https://static.example.com/logo.png
+```
+**/usr/share/nginx/html/assets/config/apps.yml**
+```yaml
+<team>:
+  <section>:
+    <application>:
+      description: <descripition>
+      color: <color_name>
+      image: <image_link>
+      url: <target_url>
+```
+
+## Production build
+```bash
+docker build -t app-dashboard .
+```
 
 ## Development server
 
@@ -22,6 +54,5 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 
 Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+#License
+MIT

@@ -1,0 +1,25 @@
+<div *ngIf="appData && auth.isAuthenticated()">
+  <ul class="team-list">
+    <li *ngFor="let entry of objectToArray(appData)" (click)="selectTeam(entry.key)"
+        [class.selected]="isSelected(entry.key)">
+      <h1>{{entry.key}}</h1>
+    </li>
+  </ul>
+  <div class="content">
+    <ul class="team-content-list" *ngFor="let entry of objectToArray(appData)" [class.selected]="isSelected(entry.key)">
+      <li *ngFor="let section of objectToArray(entry.value)">
+        <h1>{{section.key}}</h1>
+        <div class="section-list">
+          <div *ngFor="let app of objectToArray(section.value)" [class]="app.value.color + ' section-item'">
+            <a [href]="app.value.url">
+              <h1>{{app.key}}</h1>
+              <span>{{app.value.description}}</span>
+              <div class="img" [ngStyle]="{'background-image' : 'url(' + app.value.image + ')'}"
+                   [class.round]="!app.value.square" [class.white-bg]="app.value.whiteBackground"></div>
+            </a>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

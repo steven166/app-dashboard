@@ -1,6 +1,9 @@
 {
   "name": "app-dashboard",
-  "version": "0.0.0",
+  "description": "App Dashboard can be used as a landing-page for multiple applications",
+  "author": "Steven Hermans (s.hermans@maxxton.com)",
+  "version": "0.1.0",
+  "license": "MIT",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -9,7 +12,6 @@
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
-  "private": true,
   "dependencies": {
     "@angular/animations": "^6.1.0",
     "@angular/common": "^6.1.0",
@@ -20,7 +22,9 @@
     "@angular/platform-browser": "^6.1.0",
     "@angular/platform-browser-dynamic": "^6.1.0",
     "@angular/router": "^6.1.0",
+    "auth0-js": "^9.7.3",
     "core-js": "^2.5.4",
+    "js-yaml": "^3.12.0",
     "rxjs": "~6.2.0",
     "zone.js": "~0.8.26"
   },
