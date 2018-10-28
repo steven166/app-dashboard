@@ -10,7 +10,7 @@ import { ConfigModel } from './config/config.model';
 })
 export class AppComponent {
 
-  public config: ConfigModel = {};
+  public config: ConfigModel = {} as any;
 
   constructor(public auth: AuthService, public configService: ConfigService) {
     auth.handleAuthentication();
