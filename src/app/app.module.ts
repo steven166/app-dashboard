@@ -25,3 +25,6 @@ import { ConfigService } from './config/config.service';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+export const LIGHT_THEME = 'theme-light';
+export const DARK_THEME = 'theme-dark';

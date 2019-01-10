@@ -10,4 +10,5 @@ export interface ConfigModel {
   title: string;
   homeUrl: string;
   logo: string;
+  darkLogo: string;
 }

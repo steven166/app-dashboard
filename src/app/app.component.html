@@ -1,8 +1,9 @@
 <header>
   <ng-template ngIf="config">
     <a [href]="config.homeUrl || ''">
-      <img class="logo" [src]="config.logo || 'assets/logo.jpg'"/>
+      <img class="logo" [src]="getLogo()"/>
     </a>
+
   </ng-template>
   <ng-template ngIf="auth.isAuthenticated()">
     <div class="user-profile" (click)="showDropdown = !showDropdown">
@@ -10,6 +11,7 @@
       <h1>{{auth.getUserInfo().name}}</h1>
     </div>
     <div class="user-dropdown" *ngIf="showDropdown">
+      <div class="dropdown-button" (click)="switchTheme(); showDropdown = !showDropdown">Switch Theme</div>
       <div class="dropdown-button" (click)="auth.logout()">Logout</div>
     </div>
   </ng-template>
