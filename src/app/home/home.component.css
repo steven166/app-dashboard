@@ -6,9 +6,14 @@
   bottom: 0;
   width: 200px;
   padding: 0;
-
   list-style: none;
   text-transform: uppercase;
+}
+
+:host-context(.theme-dark) .team-list {
+  background-color: #272727;
+  margin:0;
+  padding: 10px 0 0 0;
 }
 
 .team-list li {
@@ -20,10 +25,11 @@
   margin-top: 5px;
   border-bottom-right-radius: 3px;
   border-top-right-radius: 3px;
+  background-color: #FFF
 }
 
 :host-context(.theme-dark) .team-list li {
-  background-color: #303030;
+  background-color: #272727;
   color: #fff;
 }
 
