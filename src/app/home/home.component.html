@@ -8,7 +8,7 @@
   <div class="content">
     <ul class="team-content-list" *ngFor="let entry of objectToArray(appData)" [class.selected]="isSelected(entry.key)">
       <li *ngFor="let section of objectToArray(entry.value)">
-        <h1>{{section.key}}</h1>
+        <h1 class="section-header">{{section.key}}</h1>
         <div class="section-list">
           <div *ngFor="let app of objectToArray(section.value)" [class]="app.value.color + ' section-item'">
             <a [href]="app.value.url">
