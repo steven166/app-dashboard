@@ -22,12 +22,17 @@
   border-top-right-radius: 3px;
 }
 
+:host-context(.theme-dark) .team-list li {
+  background-color: #303030;
+  color: #fff;
+}
+
 .team-list li:hover {
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
 }
 
-.team-list li.selected {
-  background-color: #FF9800;
+:host-context(.theme-light) .team-list li.selected, :host-context(.theme-dark) .team-list li.selected {
+  background-color: #ff6900;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
 }
 
@@ -45,6 +50,7 @@
 .team-list li h1 {
   margin: 0;
   font-size: 18px;
+  font-weight: normal;
 }
 
 .team-content-list {
@@ -64,6 +70,9 @@
 .team-content-list li h1 {
   font-size: 16px;
   text-transform: capitalize;
+}
+:host-context(.theme-dark) .team-content-list li h1.section-header {
+  color: #fff;
 }
 
 .section-list {
@@ -150,6 +159,9 @@
   font-size: 12px;
 }
 
+.section-list .section-item.white {
+  color: black;
+}
 .section-list .section-item.red {
   color: white;
   background-color: #F44336;
