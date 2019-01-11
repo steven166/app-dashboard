@@ -11,4 +11,5 @@ export interface ConfigModel {
   homeUrl: string;
   logo: string;
   darkLogo: string;
+  favicon: string;
 }

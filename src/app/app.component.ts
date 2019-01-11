@@ -1,8 +1,9 @@
-import { Component, Renderer2 } from '@angular/core';
+import { Component, Renderer2, Inject } from '@angular/core';
 import { AuthService } from './auth/auth.service';
 import { ConfigService } from './config/config.service';
 import { ConfigModel } from './config/config.model';
 import { LIGHT_THEME, DARK_THEME } from './app.module';
+import { DOCUMENT } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
@@ -15,18 +16,23 @@ export class AppComponent {
 
   public config: ConfigModel = {} as any;
 
-  constructor(public auth: AuthService, public configService: ConfigService, private renderer: Renderer2) {
+  constructor(public auth: AuthService, public configService: ConfigService, private renderer: Renderer2, @Inject(DOCUMENT) private document: HTMLDocument) {
     auth.handleAuthentication();
     configService.getConfig().then(config => {
       config.homeUrl = config.homeUrl || '';
       this.config = config;
       document.title = config.title || 'App Dashboard';
+      this.setFavicon();
     }).catch(e => console.error(e));
     this.currentTheme = localStorage.getItem('dashboard-theme');
     if (!this.currentTheme) {
       this.currentTheme = LIGHT_THEME;
     }
     this.renderer.addClass(document.body, this.currentTheme);
+  }
+
+  private setFavicon(): void {
+    this.document.getElementById('appFavicon').setAttribute('href', this.config.favicon || '/favicon.ico');
   }
 
   public switchTheme(): void {
