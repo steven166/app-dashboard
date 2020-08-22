@@ -3,7 +3,7 @@ import { AuthService } from './auth/auth.service';
 import { ConfigService } from './config/config.service';
 import { ConfigModel } from './config/config.model';
 import { LIGHT_THEME, DARK_THEME } from './app.module';
-import { DOCUMENT } from '@angular/platform-browser';
+import { DOCUMENT } from "@angular/common";
 
 @Component({
   selector: 'app-root',

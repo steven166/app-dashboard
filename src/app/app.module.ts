@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { CallbackComponent } from './callback/callback.component';
 import { HomeComponent } from './home/home.component';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/http';
 import { AuthService } from './auth/auth.service';
 import { ROUTES } from './app.routes';
 import { RouterModule } from '@angular/router';
@@ -18,7 +18,7 @@ import { ConfigService } from './config/config.service';
   ],
   imports: [
     BrowserModule,
-    HttpModule,
+    HttpClientModule,
     RouterModule.forRoot(ROUTES)
   ],
   providers: [AuthService, ConfigService],
