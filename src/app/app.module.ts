@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { CallbackComponent } from './callback/callback.component';
 import { HomeComponent } from './home/home.component';
-import { HttpClientModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from './auth/auth.service';
 import { ROUTES } from './app.routes';
 import { RouterModule } from '@angular/router';
