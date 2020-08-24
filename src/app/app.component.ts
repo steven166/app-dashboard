@@ -2,8 +2,10 @@ import { Component, Renderer2, Inject } from '@angular/core';
 import { AuthService } from './auth/auth.service';
 import { ConfigService } from './config/config.service';
 import { ConfigModel } from './config/config.model';
-import { LIGHT_THEME, DARK_THEME } from './app.module';
-import { DOCUMENT } from "@angular/common";
+import { DOCUMENT } from '@angular/common';
+
+export const LIGHT_THEME = 'theme-light';
+export const DARK_THEME = 'theme-dark';
 
 @Component({
   selector: 'app-root',
@@ -17,8 +19,9 @@ export class AppComponent {
   public config: ConfigModel = {} as any;
 
   constructor(public auth: AuthService, public configService: ConfigService, private renderer: Renderer2, @Inject(DOCUMENT) private document: HTMLDocument) {
-    auth.handleAuthentication();
     configService.getConfig().then(config => {
+      auth.handleAuthentication();
+
       config.homeUrl = config.homeUrl || '';
       this.config = config;
       document.title = config.title || 'App Dashboard';

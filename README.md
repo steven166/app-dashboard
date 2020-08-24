@@ -10,13 +10,23 @@ docker run -p 8080:8080 -v config.yml:/usr/share/nginx/html/assets/config/config
 ## Configure
 **/usr/share/nginx/html/assets/config/config.yml**
 ```yaml
-clientID: <OAUTH_CLIENT_ID>
-domain: example.com
-responseType: 'token id_token'
-redirectUri: '/callback'
-scope: 'openid read:clients profile email'
+oauthProvider: Auth0 / Google / none
+auth0:
+  clientID: <OAUTH_CLIENT_ID>
+  domain: example.com
+  responseType: 'token id_token'
+  redirectUri: '/callback'
+  scope: 'openid read:clients profile email'
+google:
+  clientId: <OAUTH_CLIENT_ID>
+  clientSecret: <OAUTH_CLIENT_SECRET>
+  scope: email
+  hosted_domain: example.com
 homeUrl: example.com
 logo: https://static.example.com/logo.png
+darkLogo: https://static.example.com/logo.png
+favicon: https://static.example.com/fav.ico
+title: My Dashboard
 ```
 **/usr/share/nginx/html/assets/config/apps.yml**
 ```yaml

@@ -22,6 +22,7 @@
     "@angular/platform-browser": "^10.0.11",
     "@angular/platform-browser-dynamic": "^10.0.11",
     "@angular/router": "^10.0.11",
+    "angularx-social-login": "^3.2.1",
     "auth0-js": "^9.13.4",
     "core-js": "^3.6.5",
     "js-yaml": "^3.14.0",

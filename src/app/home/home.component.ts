@@ -9,8 +9,8 @@ import { ConfigService } from '../config/config.service';
 })
 export class HomeComponent implements OnInit {
 
-  appData;
-  selectedTeam;
+  appData: { [x: string]: any; };
+  selectedTeam: string;
   showDropdown = false;
 
   constructor(public auth: AuthService, public config: ConfigService) {
