@@ -4,55 +4,54 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import * as auth0 from 'auth0-js';
 import { ConfigService } from '../config/config.service';
+import { Auth0Service } from './auth0.service';
+import { NoAuthService } from './no-auth.service';
+import { SocialAuthServiceConfig, SocialAuthService, GoogleLoginProvider } from 'angularx-social-login';
+import { GoogleAuthService } from './google-auth.service';
+import { Observable, forkJoin, from, of } from 'rxjs';
 
 (window as any).global = window;
+
+export interface AuthProviderService {
+  handleAuthentication(): void;
+  login(): void;
+  logout(): void;
+  initialised(): Observable<any>;
+}
 
 @Injectable()
 export class AuthService {
 
-  auth0: Promise<auth0.WebAuth>;
+  auth: Promise<AuthProviderService>;
 
-  constructor(public router: Router, private configService: ConfigService) {
-    this.auth0 = configService.getConfig().then(config => {
-      this.auth0 = new auth0.WebAuth({
-        clientID: config.clientID,
-        domain: config.domain,
-        responseType: config.responseType || 'token id_token',
-        redirectUri: `${location.protocol}//${location.host}${config.redirectUri || '/callback'}`,
-        scope: config.scope || 'openid read:clients profile email'
-      });
-      return this.auth0;
-    }).catch(e => {
-      console.error(e);
+  constructor(public router: Router, private configService: ConfigService, authService: SocialAuthService) {
+    this.auth = configService.getConfig().then(config => {
+      let provider: AuthProviderService;
+      if (config.oauthProvider && config.oauthProvider === "Auth0") {
+        provider = new Auth0Service(router, config.auth0);
+      }
+      else if (config.oauthProvider && config.oauthProvider === "Google") {
+        provider = new GoogleAuthService(router, config.google, authService);
+      }
+      else {
+        provider = new NoAuthService(router);
+      }
+      return provider;
     });
+  }
+
+  public async load(): Promise<any> {
+    let provider = await this.auth;
+    await provider.initialised().toPromise();
+
   }
 
   public login(): void {
-    Promise.resolve(this.auth0).then(auth => auth.authorize());
+    Promise.resolve(this.auth).then(auth => auth.login());
   }
 
   public handleAuthentication(): void {
-    Promise.resolve(this.auth0).then(auth => {
-      auth.parseHash((err, authResult) => {
-        if (authResult && authResult.accessToken && authResult.idToken) {
-          window.location.hash = '';
-          this.setSession(authResult);
-          this.router.navigate(['/home']);
-        } else if (err) {
-          this.router.navigate(['/home']);
-          console.log(err);
-        }
-      });
-    });
-  }
-
-  private setSession(authResult): void {
-    // Set the time that the Access Token will expire at
-    const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
-    localStorage.setItem('access_token', authResult.accessToken);
-    localStorage.setItem('id_token', authResult.idToken);
-    localStorage.setItem('expires_at', expiresAt);
-    localStorage.setItem('idTokenPayload', JSON.stringify(authResult.idTokenPayload));
+    Promise.resolve(this.auth).then(auth => auth.handleAuthentication());
   }
 
   public logout(): void {
@@ -61,13 +60,17 @@ export class AuthService {
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
     localStorage.removeItem('idTokenPayload');
+
     // Go back to the home route
     this.router.navigate(['/']);
 
-    Promise.resolve(this.auth0).then(auth => auth.logout());
+    Promise.resolve(this.auth).then(auth => auth.logout());
   }
 
   public isAuthenticated(): boolean {
+    if (this.auth instanceof NoAuthService) {
+      return true;
+    }
     // Check whether the current time is past the
     // Access Token's expiry time
     const expiresAt = JSON.parse(localStorage.getItem('expires_at') || '{}');

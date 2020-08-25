@@ -3,16 +3,17 @@
     <a [href]="config.homeUrl || ''">
       <img class="logo" [src]="getLogo()"/>
     </a>
-
   </ng-template>
   <ng-template ngIf="auth.isAuthenticated()">
     <div class="user-profile" (click)="showDropdown = !showDropdown">
       <img [src]="auth.getUserInfo().picture" *ngIf="auth.getUserInfo().picture"/>
-      <h1>{{auth.getUserInfo().name}}</h1>
+      <h1>{{auth.getUserInfo().name || "Menu"}}</h1>
     </div>
     <div class="user-dropdown" *ngIf="showDropdown">
-      <div class="dropdown-button" (click)="switchTheme(); showDropdown = !showDropdown">Switch Theme</div>
-      <div class="dropdown-button" (click)="auth.logout()">Logout</div>
+      <div class="dropdown-button" (click)="switchTheme(); showDropdown = !showDropdown" *ngIf="currentTheme === 'theme-dark'">Switch to Light Theme</div>
+      <div class="dropdown-button" (click)="switchTheme(); showDropdown = !showDropdown" *ngIf="currentTheme === 'theme-light'">Switch to Dark Theme</div>
+
+      <div class="dropdown-button" (click)="auth.logout()" *ngIf="auth.isAuthenticated()">Logout</div>
     </div>
   </ng-template>
 </header>

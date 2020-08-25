@@ -1,14 +1,46 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-
+import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { SocialLoginModule, SocialAuthServiceConfig, DummyLoginProvider } from 'angularx-social-login';
+import { GoogleLoginProvider } from 'angularx-social-login';
 import { AppComponent } from './app.component';
 import { CallbackComponent } from './callback/callback.component';
 import { HomeComponent } from './home/home.component';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from './auth/auth.service';
 import { ROUTES } from './app.routes';
 import { RouterModule } from '@angular/router';
 import { ConfigService } from './config/config.service';
+
+
+
+function getSocialConfig(configService: ConfigService): Promise<SocialAuthServiceConfig> {
+  let config: Promise<SocialAuthServiceConfig> = configService.getConfig().then(config => {
+    return {
+      autoLogin: true,
+      providers: [
+        {
+          id: GoogleLoginProvider.PROVIDER_ID,
+          provider: new GoogleLoginProvider(
+            config.google.clientId,
+            {
+              'apiKey': config.google.clientSecret,
+              'clientId': config.google.clientId,
+              'scope': 'email',
+              'hosted_domain': config.google.hosted_domain,
+              'discoveryDocs': ['https://www.googleapis.com/auth/userinfo.profile', 'https://www.googleapis.com/auth/userinfo.email']
+            }
+          )
+        }
+      ]
+    };
+  })
+  return config;
+}
+
+export function loadAuthService(authService: AuthService): Function {
+  return () => { return authService.load() };
+}
+
 
 @NgModule({
   declarations: [
@@ -18,13 +50,21 @@ import { ConfigService } from './config/config.service';
   ],
   imports: [
     BrowserModule,
-    HttpModule,
-    RouterModule.forRoot(ROUTES)
+    HttpClientModule,
+    RouterModule.forRoot(ROUTES),
+    SocialLoginModule
   ],
-  providers: [AuthService, ConfigService],
+  providers: [
+    AuthService,
+    ConfigService,
+    {
+      provide: 'SocialAuthServiceConfig',
+      useFactory: getSocialConfig,
+      deps: [ ConfigService ]
+    },
+    { provide: APP_INITIALIZER, useFactory: loadAuthService , deps: [ AuthService ], multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
 
-export const LIGHT_THEME = 'theme-light';
-export const DARK_THEME = 'theme-dark';
