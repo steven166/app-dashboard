@@ -23,17 +23,17 @@ export interface AuthProviderService {
 export class AuthService {
 
   auth: Promise<AuthProviderService>;
+  providerName: string;
 
   constructor(public router: Router, private configService: ConfigService, authService: SocialAuthService) {
     this.auth = configService.getConfig().then(config => {
       let provider: AuthProviderService;
-      if (config.oauthProvider && config.oauthProvider === "Auth0") {
+      this.providerName = config.oauthProvider;
+      if (config.oauthProvider && config.oauthProvider === 'Auth0') {
         provider = new Auth0Service(router, config.auth0);
-      }
-      else if (config.oauthProvider && config.oauthProvider === "Google") {
+      } else if (config.oauthProvider && config.oauthProvider === 'Google') {
         provider = new GoogleAuthService(router, config.google, authService);
-      }
-      else {
+      } else {
         provider = new NoAuthService(router);
       }
       return provider;
@@ -41,7 +41,7 @@ export class AuthService {
   }
 
   public async load(): Promise<any> {
-    let provider = await this.auth;
+    const provider = await this.auth;
     await provider.initialised().toPromise();
 
   }
@@ -68,7 +68,7 @@ export class AuthService {
   }
 
   public isAuthenticated(): boolean {
-    if (this.auth instanceof NoAuthService) {
+    if (this.providerName === 'None') {
       return true;
     }
     // Check whether the current time is past the
