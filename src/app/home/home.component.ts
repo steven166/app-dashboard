@@ -16,7 +16,6 @@ export class HomeComponent implements OnInit {
   constructor(public auth: AuthService, public config: ConfigService) {
     config.getApplications().then(appData => {
       this.appData = appData;
-      console.log("blaaa" + JSON.stringify(appData));
       this.selectedTeam = localStorage.getItem('selectedGroup') || this.objectToArray(this.appData)[0].key;
     }).catch(e => console.error(e));
   }
