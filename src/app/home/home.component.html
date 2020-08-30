@@ -1,4 +1,4 @@
-<div *ngIf="appData && auth && auth.isAuthenticated()">
+<div *ngIf="appData && auth.isAuthenticated()">
   <ul class="team-list">
     <li *ngFor="let entry of objectToArray(appData)" (click)="selectTeam(entry.key)"
         [class.selected]="isSelected(entry.key)">
