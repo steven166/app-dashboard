@@ -73,7 +73,7 @@ export function loadAuthService(authService: AuthService): Function {
   imports: [
     BrowserModule,
     HttpClientModule,
-    RouterModule.forRoot(ROUTES, { relativeLinkResolution: 'legacy' }),
+    RouterModule.forRoot(ROUTES, {}),
     // SocialLoginModule
   ],
   providers: [
