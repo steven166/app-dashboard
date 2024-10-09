@@ -2,7 +2,7 @@
   "name": "app-dashboard",
   "description": "App Dashboard can be used as a landing-page for multiple applications",
   "author": "Steven Hermans (s.hermans@maxxton.com)",
-  "version": "0.1.0",
+  "version": "0.7.0",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
