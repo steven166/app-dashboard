@@ -1,13 +1,13 @@
-FROM node:12.18.3-alpine
+FROM node:20-alpine
 WORKDIR /app
 
 COPY package.json .
-RUN yarn --frozen-lockfile
+RUN npm install
 
 COPY . .
-RUN ./node_modules/.bin/ng build --prod
+RUN ./node_modules/.bin/ng build
 
-FROM nginx:1.19.2-alpine
+FROM nginx:1.27.2-alpine
 EXPOSE 8080
 WORKDIR /usr/share/nginx
 VOLUME /usr/share/nginx/html/assets/config

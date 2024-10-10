@@ -10,12 +10,12 @@ export class ConfigService {
 
   public async getConfig(): Promise<ConfigModel> {
     const config = await fetch('/assets/config/config.yml').then(resp => resp.text());
-    return yaml.safeLoad(config);
+    return yaml.load(config) as ConfigModel;
   }
 
   public async getApplications(): Promise<any> {
     const config = await fetch('/assets/config/apps.yml').then(resp => resp.text());
-    return yaml.safeLoad(config);
+    return yaml.load(config);
   }
 
 }

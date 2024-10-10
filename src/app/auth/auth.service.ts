@@ -6,8 +6,6 @@ import * as auth0 from 'auth0-js';
 import { ConfigService } from '../config/config.service';
 import { Auth0Service } from './auth0.service';
 import { NoAuthService } from './no-auth.service';
-import { SocialAuthServiceConfig, SocialAuthService, GoogleLoginProvider } from 'angularx-social-login';
-import { GoogleAuthService } from './google-auth.service';
 import { Observable, forkJoin, from, of } from 'rxjs';
 
 (window as any).global = window;
@@ -25,14 +23,12 @@ export class AuthService {
   auth: Promise<AuthProviderService>;
   providerName: string;
 
-  constructor(public router: Router, private configService: ConfigService, authService: SocialAuthService) {
+  constructor(public router: Router, private configService: ConfigService) {
     this.auth = configService.getConfig().then(config => {
       let provider: AuthProviderService;
       this.providerName = config.oauthProvider;
       if (config.oauthProvider && config.oauthProvider === 'Auth0') {
         provider = new Auth0Service(router, config.auth0);
-      } else if (config.oauthProvider && config.oauthProvider === 'Google') {
-        provider = new GoogleAuthService(router, config.google, authService);
       } else {
         provider = new NoAuthService(router);
       }
